@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hearth · Household Budget</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">🏡 Hearth</div>
+  <nav id="tabs">
+    <button data-v="dash" class="on"><i>📊</i>Dashboard</button>
+    <button data-v="tx"><i>🧾</i>Transactions</button>
+    <button data-v="bud"><i>🎯</i>Budgets</button>
+    <button data-v="goal"><i>🐷</i>Goals</button>
+  </nav>
+  <div class="month"><button id="prev" aria-label="Previous month">‹</button><b id="ml"></b><button id="next" aria-label="Next month">›</button></div>
+</header>
+<main>
+<section id="v-dash" class="view">
+  <div class="stats" id="stats"></div>
+  <div class="two">
+    <div class="card"><h2>Where the money went</h2><div id="donut"></div></div>
+    <div class="card"><h2>Last 6 months</h2><div id="bars"></div>
+      <p class="key"><span><s style="background:#2f7f79"></s>Income</span><span><s style="background:#e8a622"></s>Spending</span></p></div>
+  </div>
+</section>
+
+<section id="v-tx" class="view" hidden>
+  <div class="bar">
+    <input id="q" type="search" placeholder="Search notes or categories" aria-label="Search">
+    <select id="fc" aria-label="Category filter"></select>
+    <select id="ft" aria-label="Type filter"><option value="">Income &amp; expenses</option><option value="income">Income</option><option value="expense">Expenses</option></select>
+    <label class="chk"><input id="fall" type="checkbox"> All months</label>
+  </div>
+  <div class="bar">
+    <button class="btn pri" id="add">+ Add transaction</button>
+    <button class="btn" id="csv">Export CSV</button>
+    <button class="btn" id="reset">Reset sample data</button>
+  </div>
+  <p class="sum" id="txsum"></p>
+  <div class="card list" id="list"></div>
+</section>
+
+<section id="v-bud" class="view" hidden>
+  <div class="card"><h2>Monthly limits</h2><p class="sum" id="bsum"></p><div id="blist"></div></div>
+</section>
+
+<section id="v-goal" class="view" hidden>
+  <div class="bar"><button class="btn pri" id="gnew">+ New goal</button></div>
+  <div class="goals" id="glist"></div>
+</section>
+</main>
+
+<dialog id="dlg">
+  <form id="tf">
+    <h2 id="dt">Add transaction</h2>
+    <div class="seg"><label><input type="radio" name="type" value="expense" checked> Expense</label><label><input type="radio" name="type" value="income"> Income</label></div>
+    <label>Amount ($)<input id="fa" type="number" step="0.01" min="0.01" required></label>
+    <label>Date<input id="fd" type="date" required></label>
+    <label>Category<select id="fcat"></select></label>
+    <label>Note<input id="fn" maxlength="60" placeholder="e.g. Weekly groceries"></label>
+    <div class="row"><button type="button" class="btn" data-close>Cancel</button><button class="btn pri">Save</button></div>
+  </form>
+</dialog>
+
+<dialog id="gdlg">
+  <form id="gf">
+    <h2>New savings goal</h2>
+    <label>Goal name<input id="gn" maxlength="40" required placeholder="e.g. Family holiday"></label>
+    <label>Target ($)<input id="gt" type="number" min="1" step="1" required></label>
+    <label>Already saved ($)<input id="gs" type="number" min="0" step="1" value="0"></label>
+    <div class="row"><button type="button" class="btn" data-close>Cancel</button><button class="btn pri">Create goal</button></div>
+  </form>
+</dialog>
+<div id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>
